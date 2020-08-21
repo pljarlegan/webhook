@@ -1,0 +1,23 @@
+[
+  {
+    "id": "simple-one",
+    "execute-command": "/scripts/simple-one.sh",
+    "response-message": "Executing simple webhook ...",
+    "pass-arguments-to-command": [
+      {
+        "source": "payload",
+        "name": "token"
+      }
+    ],
+    "trigger-rule": {
+      "match": {
+        "type": "value",
+        "value": "42",
+        "parameter": {
+          "source": "payload",
+          "name": "token"
+        }
+      }
+    }
+  }
+]
