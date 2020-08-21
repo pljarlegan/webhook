@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  webhook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webhook
+    volumes:
+      - ./hooks/:/etc/webhook
+      - ./scripts/:/scripts/
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.services.webhook.loadbalancer.server.port=9000
+      - traefik.http.routers.webhook.rule=PathPrefix(`/webhook`)
+      - traefik.http.routers.webhook.middlewares=webhook-stripprefix
+      - traefik.http.middlewares.webhook-stripprefix.stripprefix.prefixes=/webhook
+
+networks:
+  traefik:
+    external: true
