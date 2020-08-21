@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   webhook:
@@ -9,6 +9,8 @@ services:
     volumes:
       - ./hooks/:/etc/webhook
       - ./scripts/:/scripts/
+      - /var/run/docker.sock:/var/run/docker.sock
+
     networks:
       - traefik
     labels:
