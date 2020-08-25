@@ -6,6 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: webhook
+    restart: always
+    healthcheck:
+      test: "curl -sS --fail 127.0.0.1:9000 || exit 1"
+      interval: 120s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./hooks/:/etc/webhook
       - ./scripts/:/scripts/
